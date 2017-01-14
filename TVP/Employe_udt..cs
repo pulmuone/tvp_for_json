@@ -9,7 +9,7 @@ namespace TVP
     /// </summary>
     /// 
     [Table("employee_udt", Schema = "public")]
-    public class Employee_udt
+    public class employee_udt
     {
         [Key]
         [PgName("emp_id")] //pg 이름을 적어 준다.

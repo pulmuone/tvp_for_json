@@ -20,7 +20,7 @@ namespace TVP
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
                 connection.Open();
-                connection.MapComposite<T>();
+                connection.MapComposite<T>("employee_udt");
                 //NpgsqlTransaction tran = connection.BeginTransaction();
 
                 //NpgsqlConnection.MapCompositeGlobally<Employee_udt>("employee_udt"); //ClassName , pg TypeName

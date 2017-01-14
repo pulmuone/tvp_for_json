@@ -47,7 +47,7 @@ namespace TVP
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            List<Employee_udt> lst_param = new List<Employee_udt>();
+            List<employee_udt> lst_param = new List<employee_udt>();
 
             //Employee_udt udt = null;
             for (int i = 0; i < this.dataGridView1.Rows.Count; i++)
@@ -56,7 +56,7 @@ namespace TVP
                 {
                     //udt = new Employee_udt()
                     lst_param.Add(
-                        new Employee_udt
+                        new employee_udt
                         {
                             emp_id = Convert.ToInt32(this.dataGridView1[0, i].Value),
                             emp_nm = this.dataGridView1[1, i].Value.ToString()
@@ -70,13 +70,13 @@ namespace TVP
                 {
                     ParameterName="p_employee",
                     NpgsqlDbType = NpgsqlDbType.Composite,
-                    SpecificType = typeof(Employee_udt[]),
+                    SpecificType = typeof(employee_udt[]),
                     NpgsqlValue = lst_param                 
                 }
 
             };
 
-            SqlHelper.ExecuteNonQuery<Employee_udt>(this.connstring, "usp_set_emp", _param);
+            SqlHelper.ExecuteNonQuery<employee_udt>(this.connstring, "usp_set_emp", _param);
         }
     }
 }
