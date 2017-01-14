@@ -49,18 +49,19 @@ namespace TVP
         {
             List<Employee_udt> lst_param = new List<Employee_udt>();
 
-            Employee_udt udt = null;
+            //Employee_udt udt = null;
             for (int i = 0; i < this.dataGridView1.Rows.Count; i++)
             {
                 if (this.dataGridView1[0, i].Value != null && !string.IsNullOrEmpty(this.dataGridView1[0, i].Value.ToString()))
                 {
-                    udt = new Employee_udt()
-                    {
-                        emp_id = Convert.ToInt32(this.dataGridView1[0, i].Value),
-                        emp_nm = this.dataGridView1[1, i].Value.ToString()
-                    };
-
-                    lst_param.Add(udt);
+                    //udt = new Employee_udt()
+                    lst_param.Add(
+                        new Employee_udt
+                        {
+                            emp_id = Convert.ToInt32(this.dataGridView1[0, i].Value),
+                            emp_nm = this.dataGridView1[1, i].Value.ToString()
+                        }
+                    );
                 }
             }
             
@@ -75,8 +76,7 @@ namespace TVP
 
             };
 
-            NpgsqlConnection.MapCompositeGlobally<Employee_udt>("employee_udt"); //ClassName , pg TypeName
-            SqlHelper.ExecuteNonQuery(this.connstring, "usp_set_emp", _param);
+            SqlHelper.ExecuteNonQuery<Employee_udt>(this.connstring, "usp_set_emp", _param);
         }
     }
 }

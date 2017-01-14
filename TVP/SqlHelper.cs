@@ -1,6 +1,7 @@
 ﻿using Npgsql;
 using System;
 using System.Data;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace TVP
@@ -12,16 +13,17 @@ namespace TVP
 
         }
 
-        public static bool ExecuteNonQuery(string connectionString, string query, params NpgsqlParameter[] sqlParam)
+        public static bool ExecuteNonQuery<T>(string connectionString, string query, params NpgsqlParameter[] sqlParam) where T : new()
         {
             bool result = false;
 
-            //맵핑은 new NpgsqlConnection하기전에 해야 한다.
-            //NpgsqlConnection.MapCompositeGlobally<EmployeeEntity>();
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
                 connection.Open();
+                connection.MapComposite<T>();
                 //NpgsqlTransaction tran = connection.BeginTransaction();
+
+                //NpgsqlConnection.MapCompositeGlobally<Employee_udt>("employee_udt"); //ClassName , pg TypeName
 
                 //using (NpgsqlCommand cmdSql = new NpgsqlCommand(query, connection, tran))
                 using (NpgsqlCommand cmdSql = new NpgsqlCommand(query, connection))
