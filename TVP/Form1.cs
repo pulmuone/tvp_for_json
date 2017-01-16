@@ -13,6 +13,7 @@ namespace TVP
     {
         //private string connstring = String.Format("Server={0};Port={1};User Id={2};Password={3};Database={4};Minimum Pool Size={5};Maximum Pool Size={6};Application Name={7};", "127.0.0.1", "5432", "postgres", "0152", "postgres","10", "100", "WMS_APP");
         private string connstring = "Server=127.0.0.1;User Id=postgres;Password=0152;Database=postgres;Minimum Pool Size=10;Maximum Pool Size=100;Application Name=WMS_APP";
+
         public Form1()
         {
             InitializeComponent();
@@ -52,7 +53,14 @@ namespace TVP
         {
             List<EmployeeUdt> lst_param = new List<EmployeeUdt>();
 
-            //Employee_udt udt = null;
+            //DataView dv = new DataView(((DataTable)this.dataGridView1.DataSource));
+
+            //foreach (DataRowView item in dv)
+            //{
+            //    //Debug.WriteLine(item.DataView
+            //}
+
+
             for (int i = 0; i < this.dataGridView1.Rows.Count; i++)
             {
                 if (this.dataGridView1[0, i].Value != null && !string.IsNullOrEmpty(this.dataGridView1[0, i].Value.ToString()))
@@ -61,8 +69,8 @@ namespace TVP
                     lst_param.Add(
                         new EmployeeUdt
                         {
-                            emp_id = Convert.ToInt32(this.dataGridView1[0, i].Value),
-                            emp_nm = this.dataGridView1[1, i].Value.ToString()
+                            EmpId = Convert.ToInt32(this.dataGridView1[0, i].Value),
+                            EmpNm = this.dataGridView1[1, i].Value.ToString()
                         }
                     );
                 }

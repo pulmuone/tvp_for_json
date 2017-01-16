@@ -1,6 +1,4 @@
 ﻿using NpgsqlTypes;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TVP
 {
@@ -8,14 +6,13 @@ namespace TVP
     /// Postgresql의 Composite Type과 이름까지 동일하게
     /// </summary>
     /// 
-    [Table("employee_udt", Schema = "public")]
     public class EmployeeUdt
     {
-        [Key]
-        [PgName("emp_id")] //pg 이름을 적어 준다.
-        public int emp_id { get; set; } //pg와 달라도 상관없음.
+        //pg 이름을 적어 준다. [PgName] 속성을 통해 필드별로 매핑을 제어 할 수 있습니다. 그러면 이름 변환기가 무시됩니다.
+        [PgName("emp_id")] 
+        public int EmpId { get; set; } //pg와 달라도 상관없음.
 
         [PgName("emp_nm")]
-        public string emp_nm { get; set; }
+        public string EmpNm { get; set; }
     }
 }
