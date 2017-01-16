@@ -3,13 +3,16 @@ using NpgsqlTypes;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
+using System.Text;
 using System.Windows.Forms;
 
 namespace TVP
 {
     public partial class Form1 : Form
     {
-        private string connstring = String.Format("Server={0};Port={1};User Id={2};Password={3};Database={4};", "127.0.0.1", "5432", "postgres", "0152", "postgres");
+        //private string connstring = String.Format("Server={0};Port={1};User Id={2};Password={3};Database={4};Minimum Pool Size={5};Maximum Pool Size={6};Application Name={7};", "127.0.0.1", "5432", "postgres", "0152", "postgres","10", "100", "WMS_APP");
+        private string connstring = "Server=127.0.0.1;User Id=postgres;Password=0152;Database=postgres;Minimum Pool Size=10;Maximum Pool Size=100;Application Name=WMS_APP";
         public Form1()
         {
             InitializeComponent();
@@ -17,7 +20,7 @@ namespace TVP
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+         
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -47,7 +50,7 @@ namespace TVP
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            List<employee_udt> lst_param = new List<employee_udt>();
+            List<EmployeeUdt> lst_param = new List<EmployeeUdt>();
 
             //Employee_udt udt = null;
             for (int i = 0; i < this.dataGridView1.Rows.Count; i++)
@@ -56,7 +59,7 @@ namespace TVP
                 {
                     //udt = new Employee_udt()
                     lst_param.Add(
-                        new employee_udt
+                        new EmployeeUdt
                         {
                             emp_id = Convert.ToInt32(this.dataGridView1[0, i].Value),
                             emp_nm = this.dataGridView1[1, i].Value.ToString()
@@ -70,13 +73,13 @@ namespace TVP
                 {
                     ParameterName="p_employee",
                     NpgsqlDbType = NpgsqlDbType.Composite,
-                    SpecificType = typeof(employee_udt[]),
+                    SpecificType = typeof(EmployeeUdt[]),
                     NpgsqlValue = lst_param                 
                 }
 
             };
 
-            SqlHelper.ExecuteNonQuery<employee_udt>(this.connstring, "usp_set_emp", _param);
+            SqlHelper.ExecuteNonQuery<EmployeeUdt>(this.connstring, "usp_set_emp", _param);
         }
     }
 }

@@ -20,11 +20,11 @@ namespace TVP
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
                 connection.Open();
-                connection.MapComposite<T>("employee_udt");
+                connection.MapComposite<T>();
                 //NpgsqlTransaction tran = connection.BeginTransaction();
 
                 //NpgsqlConnection.MapCompositeGlobally<Employee_udt>("employee_udt"); //ClassName , pg TypeName
-
+                //connection.MapComposite<employee_udt>();
                 //using (NpgsqlCommand cmdSql = new NpgsqlCommand(query, connection, tran))
                 using (NpgsqlCommand cmdSql = new NpgsqlCommand(query, connection))
                 {
