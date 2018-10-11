@@ -33,6 +33,8 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtEmpNm = new System.Windows.Forms.TextBox();
+            this.emp_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.emp_nm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -42,10 +44,13 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.emp_id,
+            this.emp_nm});
             this.dataGridView1.Location = new System.Drawing.Point(12, 98);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(844, 458);
+            this.dataGridView1.Size = new System.Drawing.Size(844, 468);
             this.dataGridView1.TabIndex = 0;
             // 
             // btnSearch
@@ -84,6 +89,19 @@
             this.txtEmpNm.Size = new System.Drawing.Size(170, 21);
             this.txtEmpNm.TabIndex = 4;
             // 
+            // emp_id
+            // 
+            this.emp_id.DataPropertyName = "emp_id";
+            this.emp_id.HeaderText = "emp_id";
+            this.emp_id.Name = "emp_id";
+            // 
+            // emp_nm
+            // 
+            this.emp_nm.DataPropertyName = "emp_nm";
+            this.emp_nm.HeaderText = "emp_nm";
+            this.emp_nm.Name = "emp_nm";
+            this.emp_nm.Width = 200;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -110,6 +128,8 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtEmpNm;
+        private System.Windows.Forms.DataGridViewTextBoxColumn emp_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn emp_nm;
     }
 }
 
