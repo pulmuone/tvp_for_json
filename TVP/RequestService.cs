@@ -13,9 +13,14 @@ namespace TVP
     {
         private static readonly RequestService instance = new RequestService();
 
-        private readonly string CONNECT_URL_AUTH = string.Format(@"http://{0}:{1}{2}", "localhost", "30553", @"/PostgresqlWebApp/AuthorizationServer");
-        private readonly string CONNECT_URL_GET = string.Format(@"http://{0}:{1}{2}", "localhost", "30553", @"/PostgresqlWebApp/GetServlet");
-        private readonly string CONNECT_URL_SET = string.Format(@"http://{0}:{1}{2}", "localhost", "30553", @"/PostgresqlWebApp/SetServletForJSON");
+        //private readonly string CONNECT_URL_AUTH = string.Format(@"http://{0}:{1}{2}", "localhost", "8080", @"/xamarin/AuthorizationServer");
+        //private readonly string CONNECT_URL_GET = string.Format(@"http://{0}:{1}{2}", "localhost", "8080", @"/xamarin/GetServlet");
+        //private readonly string CONNECT_URL_SET = string.Format(@"http://{0}:{1}{2}", "localhost", "8080", @"/xamarin/SetServletForJSON");
+
+        private readonly string CONNECT_URL_AUTH = string.Format(@"http://{0}:{1}{2}", "localhost", "30553", @"/postgresql/AuthorizationServer");
+        private readonly string CONNECT_URL_GET = string.Format(@"http://{0}:{1}{2}", "localhost", "30553", @"/postgresql/GetServlet");
+        private readonly string CONNECT_URL_SET = string.Format(@"http://{0}:{1}{2}", "localhost", "30553", @"/postgresql/SetServletForJSON");
+
 
         private RequestService()
         {

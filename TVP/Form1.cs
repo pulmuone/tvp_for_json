@@ -31,6 +31,8 @@ namespace TVP
             string responseResult = string.Empty;
             string requestParamJson = string.Empty;
 
+            dataGridView1.DataSource = null;
+
             Stopwatch sw = new Stopwatch();
             sw.Reset();
             sw.Start();
@@ -43,13 +45,15 @@ namespace TVP
 
             responseResult = await RequestService.Instance.GetRequestAsync(requestParamJson);
             DataTable dt = JsonConvert.DeserializeObject<DataTable>(responseResult);
-                                 
-            DataView dv = new DataView(dt)
-            {
-                Sort = "emp_id"
-            };
 
-            this.dataGridView1.DataSource = dv.ToTable();
+            if (dt != null || dt.Rows.Count >= 1)
+            {
+                DataView dv = new DataView(dt)
+                {
+                    Sort = "emp_id"
+                };
+                this.dataGridView1.DataSource = dv.ToTable();
+            }
 
             sw.Stop();
             Debug.WriteLine("btnSearch_Click : " + sw.Elapsed.ToString());
