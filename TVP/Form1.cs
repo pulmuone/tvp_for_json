@@ -22,7 +22,16 @@ namespace TVP
 
         private async void Login()
         {
-            Global.token = await RequestService.Instance.AuthorizationAsync("admin", "1234");
+            var p = new LoginUser { Compky = "A001", Wareky = "10", Userid = "90773532", Passwd = "3532" };
+            string jsonString = JsonConvert.SerializeObject(p);
+
+             string result = await RequestService.Instance.AuthorizationAsync(jsonString);
+
+            LoginUser loginUser = JsonConvert.DeserializeObject<LoginUser>(result);
+            System.Diagnostics.Debug.WriteLine(loginUser.Auth_Token);
+
+            Global.token = loginUser.Auth_Token;
+
             Debug.WriteLine(Global.token);
         }
 
@@ -38,7 +47,7 @@ namespace TVP
             sw.Start();
 
             Dictionary<string, string> requestDic = new Dictionary<string, string>();
-            requestDic.Add("USP", "{? = call usp_get_emp_json(?)}"); //프로시저
+            requestDic.Add("UFN", "{? = call usp_get_emp_json(?)}"); //프로시저
             requestDic.Add("p_emp_nm", this.txtEmpNm.Text.Trim()); //프로시저 파라미터와 동일하게
 
             requestParamJson = JsonConvert.SerializeObject(requestDic);
@@ -86,11 +95,12 @@ namespace TVP
             string jsonString = JsonConvert.SerializeObject(lst_param);
 
             Dictionary<string, string> requestDic = new Dictionary<string, string>();
-            requestDic.Add("USP", "{? = call usp_set_emp_json(?)}"); 
+            requestDic.Add("UFN", "{? = call usp_set_emp_json_upsert(?)}");  //함수 호출
+            //requestDic.Add("USP", "call public.usp_set_emp_json_proc(?)"); //프로시저 호출
             requestDic.Add("p_employee_json", jsonString);
 
             requestParamJson = JsonConvert.SerializeObject(requestDic);
-
+             
             Stopwatch sw = new Stopwatch();
             sw.Reset();
             sw.Start();
@@ -100,7 +110,7 @@ namespace TVP
             sw.Stop();
             Debug.WriteLine("btnSave_Click : " + sw.Elapsed.ToString());
 
-            MessageBox.Show("Save");
+            MessageBox.Show(responseResult);
         }
     }
 }

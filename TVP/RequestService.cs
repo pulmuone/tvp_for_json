@@ -13,14 +13,13 @@ namespace TVP
     {
         private static readonly RequestService instance = new RequestService();
 
-        //private readonly string CONNECT_URL_AUTH = string.Format(@"http://{0}:{1}{2}", "localhost", "8080", @"/xamarin/AuthorizationServer");
-        //private readonly string CONNECT_URL_GET = string.Format(@"http://{0}:{1}{2}", "localhost", "8080", @"/xamarin/GetServlet");
-        //private readonly string CONNECT_URL_SET = string.Format(@"http://{0}:{1}{2}", "localhost", "8080", @"/xamarin/SetServletForJSON");
+        private readonly string CONNECT_URL_AUTH = string.Format(@"http://{0}:{1}{2}", "localhost", "8080", @"/xamarin/AuthorizationServer");
+        private readonly string CONNECT_URL_GET = string.Format(@"http://{0}:{1}{2}", "localhost", "8080", @"/xamarin/GetServlet");
+        private readonly string CONNECT_URL_SET = string.Format(@"http://{0}:{1}{2}", "localhost", "8080", @"/xamarin/SetServletForJSON");
 
-        private readonly string CONNECT_URL_AUTH = string.Format(@"http://{0}:{1}{2}", "localhost", "30553", @"/postgresql/AuthorizationServer");
-        private readonly string CONNECT_URL_GET = string.Format(@"http://{0}:{1}{2}", "localhost", "30553", @"/postgresql/GetServlet");
-        private readonly string CONNECT_URL_SET = string.Format(@"http://{0}:{1}{2}", "localhost", "30553", @"/postgresql/SetServletForJSON");
-
+        //private readonly string CONNECT_URL_AUTH = string.Format(@"http://{0}:{1}{2}", "localhost", "30553", @"/postgresql/AuthorizationServer");
+        //private readonly string CONNECT_URL_GET = string.Format(@"http://{0}:{1}{2}", "localhost", "30553", @"/postgresql/GetServlet");
+        //private readonly string CONNECT_URL_SET = string.Format(@"http://{0}:{1}{2}", "localhost", "30553", @"/postgresql/SetServletForJSON");
 
         private RequestService()
         {
@@ -34,7 +33,7 @@ namespace TVP
             }
         }
 
-        public async Task<string> AuthorizationAsync(string id, string pw)
+        public async Task<string> AuthorizationAsync(string jsonString)
         {
             HttpResponseMessage response = null;
             try
@@ -43,7 +42,7 @@ namespace TVP
                 {
                     client.BaseAddress = new Uri(CONNECT_URL_AUTH.ToString());
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.Timeout = new TimeSpan(0, 3, 0); //3분
+                    //client.Timeout = new TimeSpan(0, 3, 0); //3분
 
                     using (var request = new HttpRequestMessage())
                     {
@@ -52,7 +51,8 @@ namespace TVP
                         //request.Headers.Add("id", id);
                         //request.Headers.Add("pw", pw);
 
-                         request.Headers.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(string.Format("{0}:{1}", id, pw))));
+                        //request.Headers.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(string.Format("{0}:{1}", id, pw))));
+                        request.Headers.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(jsonString)));
 
                         response = await client.SendAsync(request);
                     }
