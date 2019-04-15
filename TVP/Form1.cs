@@ -76,6 +76,7 @@ namespace TVP
             //컬럼 잘라서 사용해도 가능
             //string jsonStringtmp = JsonConvert.SerializeObject((DataTable)this.dataGridView1.DataSource);
 
+            /*
             List<EmployeeUdt> lst_param = new List<EmployeeUdt>();
             for (int i = 0; i < this.dataGridView1.Rows.Count; i++)
             {
@@ -91,13 +92,23 @@ namespace TVP
                     );
                 }
             }
-
+            */
+            List<BarcodeLabel> lst_param = new List<BarcodeLabel>();
+            lst_param.Add(new BarcodeLabel { slipno = "A001101904010197", lbbrcd = "10351687120020000100001", status = "Y" });
+            lst_param.Add(new BarcodeLabel { slipno = "A001101904010197", lbbrcd = "10350522790060000100001", status = "Y" });
+            lst_param.Add(new BarcodeLabel { slipno = "A001101904010197", lbbrcd = "10351687120160003000001", status = "Y" });
             string jsonString = JsonConvert.SerializeObject(lst_param);
 
             Dictionary<string, string> requestDic = new Dictionary<string, string>();
-            requestDic.Add("UFN", "{? = call usp_set_emp_json_upsert(?)}");  //함수 호출
+            //requestDic.Add("UFN", "{? = call usp_set_emp_json_upsert(?)}");  //함수 호출
+            //requestDic.Add("p_employee_json", jsonString);
+
+            //requestDic.Add("UFN", "{? = call ufn_set_lobsm020(?, ?)}");  //함수 호출
+            requestDic.Add("UFN", "{? = call ufn_set_lobsm040(?, ?)}");  //함수 호출
+            requestDic.Add("p_barcode_json", jsonString);
+            requestDic.Add("p_userid", "90773532");
+
             //requestDic.Add("USP", "call public.usp_set_emp_json_proc(?)"); //프로시저 호출
-            requestDic.Add("p_employee_json", jsonString);
 
             requestParamJson = JsonConvert.SerializeObject(requestDic);
              
